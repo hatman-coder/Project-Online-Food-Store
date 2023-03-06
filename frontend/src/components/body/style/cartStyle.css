@@ -1,0 +1,144 @@
+.custom-card {
+    width: 100% !important;
+}
+
+.cart-container {
+    padding-top: 45px;
+}
+
+.custom-total {
+    font-size: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    margin-top: 30px;
+
+}
+.row{
+    min-width: 400px !important;
+    
+}
+
+
+
+ td {
+    padding: 1rem !important;
+    font-size: 1.3rem;
+}
+
+tbody {
+    min-height: 100vh;
+}
+
+@media screen and (max-width: 780px) {
+
+    .col {
+        flex: none;
+        flex-shrink: 0;
+        
+    }
+    .row{
+        min-width: 300px;
+        
+    }
+    .custom-total{
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    thead {
+        display: none;
+    }
+
+    td {
+        display: block;
+        padding-bottom: 1rem !important;
+        border: .5px solid lightgray;
+        border-bottom-width: none !important;
+        
+        
+    }
+
+    tr{
+        padding-bottom: 4rem;
+        display: block;
+  
+    }
+
+    td:first-child {
+        text-align: center !important;
+    }
+
+    td:nth-child(2)::before {
+        content: "Name:";
+    }
+
+    td:nth-child(3)::before {
+        content: "Price:";
+    }
+
+    td:nth-child(4)::before {
+        content: "Quantity:";
+    }
+
+    td:nth-child(5)::before {
+        content: "AddOns:";
+    }
+
+    td:nth-child(6)::before {
+        content: "Total:";
+    }
+
+    td:nth-child(7)::before {
+        content: "Delete";
+    }
+
+    td {
+        text-align: right;
+        padding-left: 20px !important;
+        
+    }
+
+    td::before {
+        float: left !important;
+        margin-right: 3rem !important;
+        font-weight: bold;
+
+    }
+    tr::before{
+        margin-bottom: 30px !important;
+    }
+
+}
+
+.cart-button-plus {
+    width: 30px;
+    color: black;
+    background-color: #a1e2fb;
+    border-radius: 5px;
+    line-height: 20px;
+
+}
+
+.cart-button-plus:hover {
+    background-color: #2bd1df;
+    color: black;
+}
+
+.cart-button-minus {
+    background-color: #ff5050;
+    width: 30px;
+    color: black;
+    border-radius: 5px;
+    line-height: 20px;
+
+}
+
+.delete-button {
+    border-radius: 10%;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-button:hover {
+    background-color: #ff5050;
+}

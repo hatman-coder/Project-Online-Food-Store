@@ -1,0 +1,16 @@
+.navbar-brand {
+  color: white !important;
+  text-decoration: solid;
+  font-weight: bolder;
+}
+
+.nav-link{
+    color: white !important;
+    display: inline-block !important;
+    list-style-type: none !important;
+}
+
+.navbar li {
+  list-style-type: none;
+  padding-right: 2rem;
+}
