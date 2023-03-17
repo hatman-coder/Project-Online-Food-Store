@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ('id', 'email', 'password')
+        fields = ('id', 'email', 'password', 'name', 'phone')
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -18,7 +18,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
         hash_password = make_password(validated_data['password'])
         user = UserProfile.objects.create_user(
             email=validated_data['email'],
-            password=validated_data['password']
+            password=validated_data['password'],
+            name=validated_data['name'],
+            phone=validated_data['phone']
         )
         return user
 

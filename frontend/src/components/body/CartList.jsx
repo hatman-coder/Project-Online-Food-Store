@@ -42,36 +42,52 @@ const CartList = () => {
     loadCartData();
   }, []);
 
-  return (
-    <div className="cart-container">
-      <div className="container">
-        <div style={{ overflow: "hidden" }}>
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">AddOns</th>
-                <th scope="col">Total</th>
-                <th scope="col">Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartData.map(
-                (item) => {
-                  return <Cart key={item.id} cartList={item} />;
-                }
-                // <Cart cartList={item} />
-              )}
-            </tbody>
-          </table>
-          <div className="custom-total">Total Price: ${TotalPrice()}</div>
+  if(cartData.length !== 0) {
+    return (
+      <div className="cart-container">
+        <div className="container">
+          <div style={{ overflow: "hidden" }}>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">AddOns</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartData.map(
+                  (item) => {
+                    return <Cart key={item.id} cartList={item} />;
+                  }
+                )}
+              </tbody>
+            </table>
+            <div className="custom-total">Total Price: ${TotalPrice()}</div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  else{
+    return(
+      <div>
+        <div className="empty-cart-img-div">
+        <img src="empty_cart.png" className="empty-cart-img"/>
+      </div>
+      <br></br>
+      <p style={{fontSize: '30px', textAlign: 'center', paddingTop:'5rem', fontWeight: 'bold'}}>Your Cart is empty !</p>
+      </div>
+      
+    )
+  }
+
+  
 };
 
 export default CartList;

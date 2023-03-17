@@ -123,3 +123,17 @@
   right: 0;
   padding-right: 20px;
 }
+
+.swal-text{
+  font-size: 20px;
+  opacity: 100%;
+  color: #1b1b1b;
+}
+
+.swal-button{
+  background-color: darkseagreen;
+}
+
+.swal-button:hover{
+  background-color: #4caf50 !important;
+}

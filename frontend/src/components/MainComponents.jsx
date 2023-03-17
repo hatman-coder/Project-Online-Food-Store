@@ -5,6 +5,7 @@ import Footer from "./footer/Footer";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CartList from "./body/CartList";
 import Login from "./body/Login";
+import Signup from "./body/Signup";
 
 const ProductWrapper = () => {
   return (
@@ -36,6 +37,16 @@ const LoginWrapper = () => {
   )
 }
 
+const SignupWrapper = () => {
+  return(
+    <div>
+      <Header/>
+      <Signup/>
+      <Footer/>
+    </div>
+  )
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LoginWrapper/>
+  },
+  {
+    path: '/signup',
+    element: <SignupWrapper/>
   }
 ]);
 

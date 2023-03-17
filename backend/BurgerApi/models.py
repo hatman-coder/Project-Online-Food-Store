@@ -22,14 +22,14 @@ def random_string(size=10, chars=string.ascii_lowercase + string.digits):
 
 
 class UserProfileManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, email, name, phone, password=None, **extra_fields):
         if not email:
             raise ValueError('User must have email')
         email = self.normalize_email(email)
-        user = self.model(email=email)
-
+        user = self.model(email=email, name=name, phone=phone, **extra_fields)
         user.set_password(password)
         user.save(using=self.db)
+        # UserProfile.objects.create(email=email, name=name, phone=phone)
         return user
 
     def create_superuser(self, email, password):
@@ -43,6 +43,8 @@ class UserProfileManager(BaseUserManager):
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=100, unique=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
 
@@ -55,9 +57,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
 
 class UserInfo(models.Model):
-    profile_image = models.ImageField()
-    username = models.CharField(max_length=50, blank=True)
-    phone = models.CharField(max_length=13, blank=True)
+    profile_image = models.ImageField(null=True, blank=True)
     current_city = models.CharField(max_length=50, blank=True)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 

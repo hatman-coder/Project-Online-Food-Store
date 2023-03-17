@@ -142,3 +142,13 @@ tbody {
 .delete-button:hover {
     background-color: #ff5050;
 }
+.empty-cart-img-div{
+    display: flex;
+    justify-content: center;
+    padding-top: 5rem;
+}
+
+.empty-cart-img{
+    width: 400px;
+    height: 200px;
+}
