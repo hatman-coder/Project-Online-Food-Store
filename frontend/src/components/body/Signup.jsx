@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, {useState} from "react";
 import './style/signup.css'
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const [error, setError] = useState('')
+    const history = useNavigate()
 
     const CreateAccount = () => {
         let email = document.getElementById('emailForm').value
@@ -48,8 +50,11 @@ const Signup = () => {
                 }
             })
             .catch(err => {
-                if(err){
-                    setError(err.res)
+                if(err.response.data.email){
+                    setError('User already exists !')
+                }
+                else if(err){
+                    console.log(err)
                 }
             })
 

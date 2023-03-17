@@ -6,9 +6,6 @@ import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-    const jwt = localStorage.getItem('jwt')
-    const jwtExist = jwt === undefined
-    // const [loggedIn, setLoggedIn] = useState(jwtExist)
     const [error, setError] = useState('')
     const history = useNavigate()
 
@@ -144,7 +141,9 @@ const Login = () => {
             </div>
 
         )
-    } else {
+    } 
+    else {
+    
         return (
             <>
                 <ProductList />

@@ -1,0 +1,28 @@
+.container-custom{
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    min-height: 350px;
+}
+
+.success-text:not(.success-h1) {
+    display: inline-block;
+    font-size: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #000;
+    animation: typing 5s steps(50) forwards;
+    text-align: center;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}

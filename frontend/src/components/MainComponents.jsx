@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CartList from "./body/CartList";
 import Login from "./body/Login";
 import Signup from "./body/Signup";
+import SignupSuccess from "./body/SignupSuccess";
 
 const ProductWrapper = () => {
   return (
@@ -47,6 +48,16 @@ const SignupWrapper = () => {
   )
 }
 
+const SignupSuccessWrapper = () => {
+  return(
+    <div>
+      <Header/>
+      <SignupSuccess/>
+      <Footer/>
+    </div>
+  )
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -63,6 +74,10 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignupWrapper/>
+  },
+  {
+    path: '/signup-success',
+    element: <SignupSuccessWrapper/>
   }
 ]);
 
