@@ -17,6 +17,7 @@ router.register(r'paymentType', PaymentTypeViewset)
 router.register(r'user-info', UserInfoViewSet)
 
 
+
 urlpatterns = [
                   path('login', LoginApiViewSet.as_view(), name='login'),
                   path('user-auth', UserApiViewSet.as_view(), name='user-auth'),

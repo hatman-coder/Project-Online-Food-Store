@@ -42,9 +42,9 @@ const CartList = () => {
     loadCartData();
   }, []);
 
-  if(cartData.length !== 0) {
+  if (cartData.length !== 0) {
     return (
-      <div className="cart-container">
+      <div className="container cart-container">
         <div className="container">
           <div style={{ overflow: "hidden" }}>
             <table className="table">
@@ -68,26 +68,29 @@ const CartList = () => {
               </tbody>
             </table>
             <div className="custom-total">Total Price: ${TotalPrice()}</div>
+            <div className="order-now-div">
+              <button className="order-now">Order now</button>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
-  else{
-    return(
+  else {
+    return (
       <div>
         <div className="empty-cart-img-div">
-        <img src="empty_cart.png" className="empty-cart-img"/>
+          <img src="empty_cart.png" className="empty-cart-img"  alt="empty-cart-img"/>
+        </div>
+        <br></br>
+        <p style={{ fontSize: '30px', textAlign: 'center', paddingTop: '5rem', fontWeight: 'bold' }}>Your Cart is empty !</p>
       </div>
-      <br></br>
-      <p style={{fontSize: '30px', textAlign: 'center', paddingTop:'5rem', fontWeight: 'bold'}}>Your Cart is empty !</p>
-      </div>
-      
+
     )
   }
 
-  
+
 };
 
 export default CartList;

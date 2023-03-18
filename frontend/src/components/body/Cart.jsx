@@ -147,7 +147,7 @@ const Cart = ({ cartList }) => {
       <td>
         {cartList.add_ons.map((item) => {
           return (
-            <>
+            <React.Fragment key={item.id}>
               <div className="row" style={{ marginBottom: "20px" }}>
                 <div className="col">
                   {item.add_ons}: (${item.add_ons_price})
@@ -188,7 +188,7 @@ const Cart = ({ cartList }) => {
                   </button>
                 </div>
               </div>
-            </>
+            </React.Fragment>
           );
         })}
       </td>

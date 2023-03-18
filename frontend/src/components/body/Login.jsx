@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [error, setError] = useState('')
-    const history = useNavigate()
+    const navigate = useNavigate()
 
+    
 
     const Signin = () => {
         let email = document.getElementById('emailForm').value
@@ -46,8 +47,9 @@ const Login = () => {
                     if (res.data.jwt && res.data.status !== 400) {
                         Cookies.set('auth', res.data.jwt)
                         localStorage.setItem('jwt', res.data.jwt)
+                        localStorage.removeItem('username')
                         window.location.reload()
-                        history.push('/')
+                        navigate('/')
                         
 
                     }
@@ -101,7 +103,7 @@ const Login = () => {
                                     <input type="checkbox" id="rememberMeCheckbox" />
                                     <label htmlFor="rememberMeCheckbox">Remember me</label>
                                 </div>
-                                <a href="#">I forgot my password!</a>
+                                <a href="/">I forgot my password!</a>
                             </div>
                             {error && <p style={{ color: "#FF0800", textAlign: 'center', fontSize: '18px', letterSpacing: '1px', whiteSpace: 'nowrap' }}>{error}</p>}
                             <button type="button" onClick={Signin}>Sign In</button>
@@ -113,7 +115,7 @@ const Login = () => {
                     <div className="login-card-social">
                         <div>Other Sign-In Options</div>
                         <div className="login-card-social-btns">
-                            <a href="#">
+                            <a href="/">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     className="icon icon-tabler icon-tabler-brand-facebook"
                                     width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
@@ -125,7 +127,7 @@ const Login = () => {
                                         d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"></path>
                                 </svg>
                             </a>
-                            <a href="#">
+                            <a href="/">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     className="icon icon-tabler icon-tabler-brand-google" width="24"
                                     height="24" viewBox="0 0 24 24" strokeWidth="3" stroke="currentColor"

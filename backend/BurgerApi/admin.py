@@ -15,7 +15,7 @@ class OrderMasterAdmin(admin.ModelAdmin):
 
 
 class OrderDetailAdmin(admin.ModelAdmin):
-    list_display = ('products',)
+    list_display = ('product_id',)
 
 
 admin.site.register(UserProfile)

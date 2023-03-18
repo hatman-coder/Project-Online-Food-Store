@@ -7,6 +7,7 @@ import CartList from "./body/CartList";
 import Login from "./body/Login";
 import Signup from "./body/Signup";
 import SignupSuccess from "./body/SignupSuccess";
+import Checkout from "./body/Checkout";
 
 const ProductWrapper = () => {
   return (
@@ -58,6 +59,19 @@ const SignupSuccessWrapper = () => {
   )
 }
 
+const CheckoutWrapper = () => {
+  return(
+    <div>
+      <Header/>
+      <Checkout/>
+      <Footer/>
+    </div>
+  )
+}
+
+
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -78,6 +92,10 @@ const router = createBrowserRouter([
   {
     path: '/signup-success',
     element: <SignupSuccessWrapper/>
+  },
+  {
+    path: '/checkout',
+    element: <CheckoutWrapper/>
   }
 ]);
 

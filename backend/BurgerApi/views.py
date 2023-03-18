@@ -67,6 +67,7 @@ class AddOnsViewSet(viewsets.ModelViewSet):
     serializer_class = AddOnsSerializer
 
 
+
 class LoginApiViewSet(APIView):
     def post(self, request):
         email = request.data['email']

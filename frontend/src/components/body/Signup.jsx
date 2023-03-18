@@ -5,19 +5,20 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const [error, setError] = useState('')
-    const history = useNavigate()
+    const navigate = useNavigate()
 
     const CreateAccount = () => {
+        
         let email = document.getElementById('emailForm').value
         let password = document.getElementById('passwordForm').value
         let confirmPassword = document.getElementById('confirmPassword').value
-        let name = document.getElementById('name').value
+        let username = document.getElementById('username').value
         let phone = document.getElementById('phone').value
 
         let postObject = {
             'email': email,
             'password': password,
-            'name': name,
+            'username': username,
             'phone': phone
         }
        
@@ -30,7 +31,7 @@ const Signup = () => {
         if (email.trim() === ''  || email === null 
         || password.trim() ==='' || password === null
         || confirmPassword.trim() ==='' || confirmPassword === null
-        || name.trim() ==='' || name === null
+        || username.trim() ==='' || username === null
         || phone.trim() ==='' || phone === null  
         ){
             setError('Please fillup all the required fields !')
@@ -47,13 +48,20 @@ const Signup = () => {
             .then(res => {
                 if(res.data){
                     console.log(res.data)
+                    localStorage.setItem('username', res.data.username)
+                    navigate('/signup-success')
                 }
             })
             .catch(err => {
+               
                 if(err.response.data.email){
                     setError('User already exists !')
                 }
-                else if(err){
+                if(err){
+                    console.log(err)
+                    setError('Something is wrong. Try again later')
+                }
+                else{
                     console.log(err)
                 }
             })
@@ -92,7 +100,7 @@ const Signup = () => {
                             </div>
                             <div className="form-item">
                                 <span className="form-item-icon material-symbols-rounded">person</span>
-                                <input type="text" placeholder="Name" id="name"
+                                <input type="text" placeholder="Name" id="username"
                                     required />
                             </div>
                             <div className="form-item">

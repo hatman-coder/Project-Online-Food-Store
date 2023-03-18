@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ('id', 'email', 'password', 'name', 'phone')
+        fields = ('id', 'email', 'password', 'username', 'phone')
         extra_kwargs = {
             'password': {
                 'write_only': True,
@@ -19,7 +19,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         user = UserProfile.objects.create_user(
             email=validated_data['email'],
             password=validated_data['password'],
-            name=validated_data['name'],
+            username=validated_data['username'],
             phone=validated_data['phone']
         )
         return user
@@ -85,16 +85,14 @@ class OrderMasterSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        customer_data = validated_data.pop('customer_detail')
-        customer_detail = CustomerDetailSerializer.create(CustomerDetailSerializer(), validated_data=customer_data)
+        customer_detail_data = validated_data.pop('customer_detail')
+        customer_detail = CustomerDetail.objects.create(**customer_detail_data)
         order_status_data = validated_data.pop('order_status')
-        order_status = OrderStatusSerializer.create(OrderStatusSerializer(), validated_data=order_status_data)
-        order_master, created = OrderMaster.objects.update_or_create(
-            user_id=validated_data.pop('user_id'),
+        order_status = OrderStatus.objects.create(**order_status_data)
+        order_master = OrderMaster.objects.create(
             customer_detail=customer_detail,
             order_status=order_status,
-            payment_type=validated_data.pop('payment_type'),
-            total=validated_data.pop('total'),
+            **validated_data,
             delivery_time=(datetime.now() + timedelta(minutes=30)).strftime('%H:%M:%S')
         )
         return order_master
@@ -119,12 +117,17 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
+        product_id = validated_data.pop('product_id')
+        product_price = Product.objects.get(id=product_id).price
+        validated_data['price'] = product_price
+
         order_master_data = validated_data.pop('order_master_id')
         order_master_id = OrderMasterSerializer.create(OrderMasterSerializer(), validated_data=order_master_data)
-        order_detail, created = OrderDetail.objects.update_or_create(
-            order_master_id=order_master_id,
-            product_id=validated_data.pop('product_id')
-        )
+
+        order_detail = super().create({
+            **validated_data,
+            'order_master_id': order_master_id,
+        })
         return order_detail
 
     def update(self, instance, validated_data):

@@ -1,26 +1,21 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "./style/navbar.css";
-import { useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom'
 
 const NavigationBar = () => {
-  const jwt = localStorage.getItem('jwt')
-  const jwtExist = jwt === undefined
-  const [loggedIn, setLoggedIn] = useState(jwtExist)
-  const history = useNavigate()
-
-  
+  const navigate = useNavigate()
 
 
   const Logout = () => {
     localStorage.removeItem('jwt')
     Cookies.remove('auth')
-    history.push('/login')
+    navigate('/login')
     
   }
 
-  if (loggedIn === false && !localStorage.getItem('jwt') && !Cookies.get('auth')) {
+  if (!localStorage.getItem('jwt') && !Cookies.get('auth')) {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-black">
@@ -64,7 +59,7 @@ const NavigationBar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="" onClick={Logout}>
+              <a className="nav-link" aria-current="page"  onClick={Logout}>
                 Logout
               </a>
             </li>

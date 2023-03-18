@@ -71,11 +71,7 @@ class PaymentType(models.Model):
     def __str__(self):
         return self.payment_type
 
-class PaymentStatus(models.Model):
-    payment_status = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.payment_status
 
 
 class Category(models.Model):
@@ -139,18 +135,18 @@ class OrderMaster(models.Model):
     customer_detail = models.ForeignKey(CustomerDetail, on_delete=models.CASCADE)
     order_status = models.ForeignKey(OrderStatus, on_delete=models.CASCADE)
     payment_type = models.ForeignKey(PaymentType, on_delete=models.CASCADE)
-    payment_status = models.ForeignKey(PaymentStatus, on_delete=models.CASCADE, null=True, blank=True, default=None)
     total = models.CharField(max_length=100, null=True, blank=True)
     order_time = models.DateTimeField(auto_now_add=True)
     delivery_time = models.CharField(max_length=1000, editable=False)
 
     def __str__(self):
-        return str(self.delivery_time)
+        return str(self.user_id)
 
 
 class OrderDetail(models.Model):
     order_master_id = models.ForeignKey(OrderMaster, on_delete=models.CASCADE)
-    products = models.CharField(max_length=500, blank=True, null=True)
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_price = models.CharField(max_length=10)
 
     def __str__(self):
         return str(self.order_master_id.order_no)

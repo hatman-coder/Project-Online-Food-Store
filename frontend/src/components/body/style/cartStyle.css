@@ -4,24 +4,28 @@
 
 .cart-container {
     padding-top: 45px;
+    background-color: #f2f2f2;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    margin-top: 3rem;
 }
 
 .custom-total {
     font-size: 30px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bolder;
+    font-weight: bold;
     margin-top: 30px;
 
 }
 .row{
     min-width: 400px !important;
-    
+    padding-right: 0;
+
 }
 
 
 
  td {
-    padding: 1rem !important;
+    padding: 0.5rem 0.5rem !important;
     font-size: 1.3rem;
 }
 
@@ -29,7 +33,9 @@ tbody {
     min-height: 100vh;
 }
 
-@media screen and (max-width: 780px) {
+
+
+@media screen and (max-width: 1200px) {
 
     .col {
         flex: none;
@@ -38,12 +44,12 @@ tbody {
     }
     .row{
         min-width: 300px;
-        
     }
     .custom-total{
-        margin-top: 30px;
-        text-align: center;
+        margin-top: 10px;
+        text-align: left;
     }
+
 
     thead {
         display: none;
@@ -51,7 +57,8 @@ tbody {
 
     td {
         display: block;
-        padding-bottom: 1rem !important;
+        font-size: 1rem;
+        padding: 0.5rem 0.5rem !important;
         border: .5px solid lightgray;
         border-bottom-width: none !important;
         
@@ -94,7 +101,7 @@ tbody {
 
     td {
         text-align: right;
-        padding-left: 20px !important;
+        /* padding-left: 20px !important; */
         
     }
 
@@ -110,6 +117,8 @@ tbody {
 
 }
 
+
+
 .cart-button-plus {
     width: 30px;
     color: black;
@@ -121,7 +130,6 @@ tbody {
 
 .cart-button-plus:hover {
     background-color: #2bd1df;
-    color: black;
 }
 
 .cart-button-minus {
@@ -131,6 +139,10 @@ tbody {
     border-radius: 5px;
     line-height: 20px;
 
+}
+
+.cart-button-minus:hover{
+    background-color: red;
 }
 
 .delete-button {
@@ -151,4 +163,23 @@ tbody {
 .empty-cart-img{
     width: 400px;
     height: 200px;
+}
+.order-now-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+
+.order-now{
+    background: darkseagreen;
+    color: white;
+    padding: 1rem;
+    border-radius: 100px;
+    border-width: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+   
 }
