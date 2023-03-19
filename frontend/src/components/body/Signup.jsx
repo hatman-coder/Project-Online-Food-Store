@@ -57,7 +57,7 @@ const Signup = () => {
                 if(err.response.data.email){
                     setError('User already exists !')
                 }
-                if(err){
+                else if(err){
                     console.log(err)
                     setError('Something is wrong. Try again later')
                 }

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Cart from "./Cart";
 import "./style/cartStyle.css";
+import { useNavigate } from "react-router-dom";
 
 const CartList = () => {
   const [cartData, setCartData] = useState([]);
+  const navigate = useNavigate()
 
   const loadCartData = () => {
     let data = localStorage.getItem("cart");
@@ -45,7 +47,6 @@ const CartList = () => {
   if (cartData.length !== 0) {
     return (
       <div className="container cart-container">
-        <div className="container">
           <div style={{ overflow: "hidden" }}>
             <table className="table">
               <thead>
@@ -69,10 +70,10 @@ const CartList = () => {
             </table>
             <div className="custom-total">Total Price: ${TotalPrice()}</div>
             <div className="order-now-div">
-              <button className="order-now">Order now</button>
+              <button className="order-now" onClick={() => navigate('/checkout')}>Order now</button>
             </div>
           </div>
-        </div>
+    
       </div>
     );
   }

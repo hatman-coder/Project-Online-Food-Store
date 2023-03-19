@@ -68,6 +68,7 @@ const Product = ({ productList, addOnsList }) => {
         className="card-img-top custom-card-img-top"
         src={productList.img}
         alt="Unavailable"
+        style={{ height: "200px", objectFit: "cover" }}
       />
       <div className="card-body transbox custom-card-body">
         <h5 className="card-title custom-cart-title">{productList.name}</h5>

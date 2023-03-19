@@ -1,85 +1,114 @@
-.row {
-    display: -ms-flexbox; /* IE10 */
-    display: flex;
-    -ms-flex-wrap: wrap; /* IE10 */
-    flex-wrap: wrap;
-    margin: 0 -16px;
-  }
-  
-  .col-25 {
-    -ms-flex: 25%; /* IE10 */
-    flex: 25%;
-  }
-  
-  .col-50 {
-    -ms-flex: 50%; /* IE10 */
-    flex: 50%;
-  }
-  
-  .col-75 {
-    -ms-flex: 75%; /* IE10 */
-    flex: 75%;
-  }
-  
-  .col-25,
-  .col-50,
-  .col-75 {
-    padding: 0 16px;
-  }
-  
-  .container {
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.custom-checkout-container{
+    width: 100%;
+    margin: 50px auto;
     background-color: #f2f2f2;
-    padding: 5px 20px 15px 20px;
-    border: 1px solid lightgrey;
-    border-radius: 3px;
-  }
-  
-  input[type=text] {
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  label {
-    margin-bottom: 10px;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+header {
+    color: #fff;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 600;
+    margin: 50px 0;
+}
+
+header>span {
     display: block;
-  }
-  
-  .icon-container {
-    margin-bottom: 20px;
-    padding: 7px 0;
-    font-size: 24px;
-  }
-  
-  .btn {
-    background-color: #04AA6D;
-    color: white;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.in-container {
     width: 100%;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 17px;
-  }
-  
-  .btn:hover {
-    background-color: #45a049;
-  }
-  
-  span.price {
+    margin: 40px 0;
+
+}
+
+h2 {
+    font-weight: 400;
+    color: black;
+    border-bottom: 1px solid black;
+    border-width: 2px;
+    margin: 20px 50px;
+    padding: 10px;
+    text-align: center;
+}
+
+.custom-row {
+    width: 100%;
+    margin: 20px 0;
+    padding: 0;
+    display: table;
+}
+
+.col2 {
+    display: table;
+    width: 47%;
+    float: left;
+}
+
+.col2:nth-child(2) {
+    display: table;
     float: right;
-    color: grey;
-  }
-  
-  /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
-  @media (max-width: 800px) {
-    .row {
-      flex-direction: column-reverse;
-    }
-    .col-25 {
-      margin-bottom: 20px;
-    }
-  }
+}
+
+.custom-label {
+    line-height: 35px;
+    display: table-header-group;
+    letter-spacing: 0.9px;
+    transition: all 0.3s ease;
+}
+
+.checkout-input {
+    width: 100%;
+    display: table-row-group;
+    border-spacing: border-box;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    color: black;
+    font-size: 1rem;
+}
+
+.checkout-input:focus {
+    outline: none !important;
+    border-color: #EF5350;
+}
+
+.checkout-input:focus+label {
+    color: #EF5350;
+}
+.custom-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.checkout-submit-button {
+    background: darkseagreen;
+    color: white;
+    padding: 1rem;
+    border-width: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+    overflow: hidden !important;
+
+}
+
+.checkout-submit-button:hover {
+    background-color: #4caf50;
+}

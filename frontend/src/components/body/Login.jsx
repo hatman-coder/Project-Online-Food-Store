@@ -103,7 +103,7 @@ const Login = () => {
                                     <input type="checkbox" id="rememberMeCheckbox" />
                                     <label htmlFor="rememberMeCheckbox">Remember me</label>
                                 </div>
-                                <a href="/">I forgot my password!</a>
+                                <a href="/login">I forgot my password!</a>
                             </div>
                             {error && <p style={{ color: "#FF0800", textAlign: 'center', fontSize: '18px', letterSpacing: '1px', whiteSpace: 'nowrap' }}>{error}</p>}
                             <button type="button" onClick={Signin}>Sign In</button>

@@ -34,8 +34,8 @@
 
 .custom-card-body {
   background-color: #1b1b1b;
-  min-height: 280px;
-  max-height: 280px;
+  min-height: 280px !important;
+  max-height: 280px !important;
 }
 
 .custom-card-text {
@@ -46,10 +46,11 @@
   overflow: hidden;
 }
 
-.custom-card-img-top {
-  max-height: 200px;
-  min-height: 150px;
+.custom-card-img-top{
+  max-height: 200px !important;
+  min-height: 150px !important;
   object-fit: cover;
+  width: 100%;
 }
 
 .customDiv {

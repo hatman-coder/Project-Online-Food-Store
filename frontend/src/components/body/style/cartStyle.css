@@ -8,6 +8,9 @@
     border: 1px solid lightgrey;
     border-radius: 3px;
     margin-top: 3rem;
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+
 }
 
 .custom-total {
@@ -27,6 +30,7 @@
  td {
     padding: 0.5rem 0.5rem !important;
     font-size: 1.3rem;
+    border-bottom-width: none !important;
 }
 
 tbody {
@@ -35,7 +39,11 @@ tbody {
 
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
+
+    .cart-container{
+        padding-top: 0;
+    }
 
     .col {
         flex: none;
@@ -44,6 +52,7 @@ tbody {
     }
     .row{
         min-width: 300px;
+        display: inherit;
     }
     .custom-total{
         margin-top: 10px;
@@ -59,7 +68,7 @@ tbody {
         display: block;
         font-size: 1rem;
         padding: 0.5rem 0.5rem !important;
-        border: .5px solid lightgray;
+        border: 2px solid lightsteelblue;
         border-bottom-width: none !important;
         
         
@@ -182,4 +191,8 @@ tbody {
     text-transform: uppercase;
     letter-spacing: 2px;
    
+}
+
+.order-now:hover{
+    background-color: #4caf50;
 }
