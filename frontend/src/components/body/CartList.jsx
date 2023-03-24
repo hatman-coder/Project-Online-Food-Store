@@ -37,6 +37,7 @@ const CartList = () => {
       }
     }
     let total_price = parseInt(productTotal) + parseInt(addOnsTotal);
+    localStorage.setItem('total', total_price)
     return total_price;
   };
 

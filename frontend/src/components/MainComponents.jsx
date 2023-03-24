@@ -8,6 +8,7 @@ import Login from "./body/Login";
 import Signup from "./body/Signup";
 import SignupSuccess from "./body/SignupSuccess";
 import Checkout from "./body/Checkout";
+import OrderDetail from "./body/OrderDetail";
 
 const ProductWrapper = () => {
   return (
@@ -69,6 +70,16 @@ const CheckoutWrapper = () => {
   )
 }
 
+const OrderDetailWrapper = () => {
+  return(
+    <div>
+    <Header/>
+    <OrderDetail/>
+    <Footer/>
+  </div>
+  )
+}
+
 
 
 
@@ -96,6 +107,10 @@ const router = createBrowserRouter([
   {
     path: '/checkout',
     element: <CheckoutWrapper/>
+  },
+  {
+    path: '/orderDetail',
+    element: <OrderDetailWrapper/>
   }
 ]);
 

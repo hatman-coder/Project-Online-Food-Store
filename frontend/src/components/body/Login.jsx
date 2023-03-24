@@ -75,7 +75,7 @@ const Login = () => {
 
 
 
-    if (!localStorage.getItem('jwt') && !Cookies.get('auth')) {
+    if (!localStorage.getItem('jwt') || !Cookies.get('auth')) {
         return (
             <div className="body">
                 <div className="login-card-container">

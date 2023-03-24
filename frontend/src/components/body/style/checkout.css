@@ -41,12 +41,26 @@ h2 {
     padding: 10px;
     text-align: center;
 }
+.row{
+    margin-left: 0 !important;
+    flex-shrink: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.col2{
+    margin-left: 0 !important;
+    flex-shrink: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
 
 .custom-row {
     width: 100%;
     margin: 20px 0;
     padding: 0;
     display: table;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .col2 {
@@ -76,11 +90,13 @@ h2 {
     border-radius: 5px;
     color: black;
     font-size: 1rem;
+    background: white;
 }
 
 .checkout-input:focus {
     outline: none !important;
-    border-color: #EF5350;
+    border-color: black;
+    background: ghostwhite;
 }
 
 .checkout-input:focus+label {
@@ -100,15 +116,42 @@ h2 {
     color: white;
     padding: 1rem;
     border-width: 0;
+    border-radius: 5x;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-left: 0.5rem !important;
     margin-right: 0.5rem !important;
     overflow: hidden !important;
+    width: 100%;
 
 }
 
 .checkout-submit-button:hover {
     background-color: #4caf50;
 }
+
+/* Style the select element */
+.custom-select {
+    width: 47%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #555;
+  }
+  
+  /* Style the options */
+  .custom-select option {
+    font-size: 16px;
+    background-color: #fff;
+    color: #555;
+  }
+  
+  /* Style the selected option */
+  .custom-select option:checked {
+    background-color: #007bff;
+    color: #fff;
+  }
+  

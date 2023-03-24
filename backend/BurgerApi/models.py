@@ -143,6 +143,8 @@ class OrderMaster(models.Model):
         return str(self.user_id)
 
 
+
+
 class OrderDetail(models.Model):
     order_master_id = models.ForeignKey(OrderMaster, on_delete=models.CASCADE)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)

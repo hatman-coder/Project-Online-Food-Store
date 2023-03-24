@@ -15,7 +15,7 @@ const NavigationBar = () => {
     
   }
 
-  if (!localStorage.getItem('jwt') && !Cookies.get('auth')) {
+  if (!localStorage.getItem('jwt') || !Cookies.get('auth')) {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-black">
@@ -56,6 +56,11 @@ const NavigationBar = () => {
             <li className="nav-item">
               <a className="nav-link" aria-current="page" href="/">
                 Home
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" aria-current="page" href="/">
+                Order
               </a>
             </li>
             <li className="nav-item">

@@ -44,8 +44,17 @@ class CategoryViewset(viewsets.ModelViewSet):
 
 
 class OrderMasterViewset(viewsets.ModelViewSet):
-    queryset = OrderMaster.objects.all()
     serializer_class = OrderMasterSerializer
+
+    def get_queryset(self):
+        # Get the authenticated user
+        user = self.request.user
+
+        # Filter orders by the authenticated user
+        if user:
+            return OrderMaster.objects.filter(user_id=user)
+        else:
+            raise AuthenticationFailed('User Not found')
 
 
 class OrderDetailViewset(viewsets.ModelViewSet):
@@ -65,6 +74,7 @@ class PaymentTypeViewset(viewsets.ModelViewSet):
 class AddOnsViewSet(viewsets.ModelViewSet):
     queryset = AddOns.objects.all()
     serializer_class = AddOnsSerializer
+
 
 
 
@@ -90,7 +100,7 @@ class LoginApiViewSet(APIView):
             token = jwt.encode(payload, 'secret', algorithm='HS256')
 
             response = Response()
-            response.set_cookie(key='jwt', value=token, httponly=True)
+            response.set_cookie(key='auth', value=token, httponly=True)
             response.data = {
                 'jwt': token
             }
@@ -98,7 +108,7 @@ class LoginApiViewSet(APIView):
 
 class UserApiViewSet(APIView):
     def get(self, request):
-        token = request.COOKIES.get('jwt')
+        token = request.COOKIES.get('auth')
 
         if not token:
             raise AuthenticationFailed('Unauthenticated')

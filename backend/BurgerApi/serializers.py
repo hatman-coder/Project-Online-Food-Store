@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import *
 from django.contrib.auth.hashers import make_password
 from datetime import datetime, timedelta
+import json
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -36,10 +37,12 @@ class AddOnsSerializer(serializers.ModelSerializer):
         model = AddOns
         fields = '__all__'
 
+
 class PaymentTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentType
         fields = '__all__'
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -108,7 +111,6 @@ class OrderMasterSerializer(serializers.ModelSerializer):
         nested_order_status.update(nested_order_status_instance, nested_order_status_data)
         return super(OrderMasterSerializer, self).update(instance, validated_data)
 
-
 class OrderDetailSerializer(serializers.ModelSerializer):
     order_master_id = OrderMasterSerializer()
 
@@ -118,17 +120,18 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         product_id = validated_data.pop('product_id')
-        product_price = Product.objects.get(id=product_id).price
-        validated_data['price'] = product_price
+        product_price = validated_data.pop('product_price')
 
         order_master_data = validated_data.pop('order_master_id')
         order_master_id = OrderMasterSerializer.create(OrderMasterSerializer(), validated_data=order_master_data)
 
-        order_detail = super().create({
-            **validated_data,
-            'order_master_id': order_master_id,
-        })
-        return order_detail
+        return OrderDetail.objects.create(
+            order_master_id=order_master_id,
+            product_id=product_id,
+            product_price=product_price,
+        )
+
+
 
     def update(self, instance, validated_data):
         nested_serializer = self.fields['order_master_id']
