@@ -6,6 +6,7 @@ from multiselectfield import MultiSelectField
 from django.contrib.auth.models import (AbstractBaseUser,
                                         BaseUserManager,
                                         PermissionsMixin)
+from rest_framework.permissions import AllowAny
 
 
 def upload_product_image(instance, filename):
@@ -122,7 +123,7 @@ class OrderStatus(models.Model):
     delivered = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return str(self.order_confirmed)
+        return str(self.order_placed)
 
 
 class OrderMaster(models.Model):
@@ -153,3 +154,17 @@ class OrderDetail(models.Model):
     def __str__(self):
         return str(self.order_master_id.order_no)
 
+class UserToken(models.Model):
+    user = models.CharField(max_length=200)
+    token = models.CharField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return  self.token
+
+
+class ExpiredToken(models.Model):
+    token = models.CharField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return  self.token

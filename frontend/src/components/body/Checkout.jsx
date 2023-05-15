@@ -10,12 +10,16 @@ const Checkout = () => {
     const [error, setError] = useState('')
     const [cartData, setCartData] = useState([])
     const navigate = useNavigate()
+    const token = Cookies.get('auth');
+    const headers = {
+    'Authorization': `Bearer ${token}`
+    };
 
 
     const  GetUser = () => {
-        axios.get('http://127.0.0.1:8000/user-auth', {
-            withCredentials: true
-        })
+        axios.get('http://127.0.0.1:8000/user-auth', 
+        {headers}
+        )
         .then(res => {
             if(res.data){
                 setUserId(res.data.id)
@@ -83,7 +87,7 @@ const Checkout = () => {
                             "order_confirmed": "",
                             "order_preparation_on_going": "",
                             "out_for_delivery": "",
-                            "delivered": ""
+                            "delivered": "Pending"
                         },
                         "total": total,
                         "user_id": userId,
@@ -96,20 +100,24 @@ const Checkout = () => {
         })
        
         
-        if(userId  && localStorage.getItem('cart') !== undefined){
-            for(let i=0; i<postData.length; i++){
-                axios.post('http://127.0.0.1:8000/orderDetail/', postData[i])
-                .then(res => {
-                    if(res.status === 201){
-                        console.log(res.data)
-                        localStorage.setItem('orderData', res.data)
-                        navigate('/orderDetail')
-                    }
-                })
-                .catch(err => console.log(err))
+        if (userId && localStorage.getItem('cart') !== undefined) {
+            for (let i = 0; i < postData.length; i++) {
+              axios.post('http://127.0.0.1:8000/orderDetail/', postData[i], {
+                headers: {
+                  'Authorization': `Bearer ${Cookies.get('auth')}`
+                }
+              })
+              .then(res => {
+                if (res.status === 201) {
+                  localStorage.removeItem('cart')
+                  localStorage.removeItem('total')
+                  navigate('/orderSuccess')
+                }
+              })
+              .catch(err => console.log(err))
             }
-            
-        }
+          }
+          
 
         else{
             console.log('Login First')

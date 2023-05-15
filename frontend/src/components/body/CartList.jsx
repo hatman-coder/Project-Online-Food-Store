@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cart from "./Cart";
 import "./style/cartStyle.css";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const CartList = () => {
   const [cartData, setCartData] = useState([]);
@@ -48,33 +49,41 @@ const CartList = () => {
   if (cartData.length !== 0) {
     return (
       <div className="container cart-container">
-          <div style={{ overflow: "hidden" }}>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">AddOns</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartData.map(
-                  (item) => {
-                    return <Cart key={item.id} cartList={item} />;
-                  }
-                )}
-              </tbody>
-            </table>
-            <div className="custom-total">Total Price: ${TotalPrice()}</div>
+        <div style={{ overflow: "hidden" }}>
+        <h1 style={{ paddingBottom: '3rem', alignContent: 'center', textAlign: 'center', fontStyle: 'bold' }}>Cart Items</h1>
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">AddOns</th>
+                <th scope="col">Total</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartData.map(
+                (item) => {
+                  return <Cart key={item.id} cartList={item} />;
+                }
+              )}
+            </tbody>
+          </table>
+          <div className="custom-total">Total Price: ${TotalPrice()}</div>
+          {localStorage.getItem('jwt') && Cookies.get('auth') ?
             <div className="order-now-div">
               <button className="order-now" onClick={() => navigate('/checkout')}>Order now</button>
             </div>
-          </div>
-    
+            :
+            <div className="order-now-div">
+              <button className="order-now" onClick={() => navigate('/login')}>Order now</button>
+            </div>
+          }
+
+        </div>
+
       </div>
     );
   }
@@ -83,7 +92,7 @@ const CartList = () => {
     return (
       <div>
         <div className="empty-cart-img-div">
-          <img src="empty_cart.png" className="empty-cart-img"  alt="empty-cart-img"/>
+          <img src="empty_cart.png" className="empty-cart-img" alt="empty-cart-img" />
         </div>
         <br></br>
         <p style={{ fontSize: '30px', textAlign: 'center', paddingTop: '5rem', fontWeight: 'bold' }}>Your Cart is empty !</p>

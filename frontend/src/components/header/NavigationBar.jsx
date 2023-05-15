@@ -3,17 +3,38 @@ import React from "react";
 import "./style/navbar.css";
 import Cookies from "js-cookie";
 import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+
 
 const NavigationBar = () => {
   const navigate = useNavigate()
 
 
   const Logout = () => {
-    localStorage.removeItem('jwt')
-    Cookies.remove('auth')
-    navigate('/login')
-    
+    let token = Cookies.get('auth')
+    if (token) {
+      axios.post('http://127.0.0.1:8000/logout', {}, {
+      withCredentials: true,
+      credentials: 'include'
+        })
+      .then(res => {
+        if (res.data && res.data.message === 'success') { // check for 'success' message
+          localStorage.removeItem('jwt')
+          Cookies.remove('auth')
+          navigate('/login')
+        }
+      }).catch(err => {
+        if (err.response && err.response.data && err.response.data.error) {
+          console.log(err.response.data.error)
+        } else {
+          console.log(err)
+        }
+      })
+    }
   }
+  
+  
+  
 
   if (!localStorage.getItem('jwt') || !Cookies.get('auth')) {
     return (
@@ -59,8 +80,8 @@ const NavigationBar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="/">
-                Order
+              <a className="nav-link" aria-current="page" href="/orderDetail">
+                Orders
               </a>
             </li>
             <li className="nav-item">

@@ -8,7 +8,9 @@ import Login from "./body/Login";
 import Signup from "./body/Signup";
 import SignupSuccess from "./body/SignupSuccess";
 import Checkout from "./body/Checkout";
-import OrderDetail from "./body/OrderDetail";
+import OrderDetail from "./body/OrderDetailList";
+import OrderSuccess from "./body/OrderSuccess";
+import OrderDetailList from "./body/OrderDetailList";
 
 const ProductWrapper = () => {
   return (
@@ -21,62 +23,72 @@ const ProductWrapper = () => {
 };
 
 const CartListWrapper = () => {
-  return(
+  return (
     <div>
-    <Header />
-    <CartList/>
-    <Footer />
-  </div>
+      <Header />
+      <CartList />
+      <Footer />
+    </div>
   )
 }
 
 const LoginWrapper = () => {
-  return(
+  return (
     <div>
       <Header />
-      <Login/>
+      <Login />
       <Footer />
     </div>
   )
 }
 
 const SignupWrapper = () => {
-  return(
+  return (
     <div>
-      <Header/>
-      <Signup/>
-      <Footer/>
+      <Header />
+      <Signup />
+      <Footer />
     </div>
   )
 }
 
 const SignupSuccessWrapper = () => {
-  return(
+  return (
     <div>
-      <Header/>
-      <SignupSuccess/>
-      <Footer/>
+      <Header />
+      <SignupSuccess />
+      <Footer />
     </div>
   )
 }
 
 const CheckoutWrapper = () => {
-  return(
+  return (
     <div>
-      <Header/>
-      <Checkout/>
-      <Footer/>
+      <Header />
+      <Checkout />
+      <Footer />
     </div>
   )
 }
 
-const OrderDetailWrapper = () => {
-  return(
+const OrderSuccessWrapper = () => {
+  return (
     <div>
-    <Header/>
-    <OrderDetail/>
-    <Footer/>
-  </div>
+      <Header />
+      <OrderSuccess />
+      <Footer />
+    </div>
+  )
+}
+
+const OrderDetailListWrapper = () => {
+  return (
+    <div>
+      <Header />
+      <OrderDetailList />
+      <Footer />
+    </div>
   )
 }
 
@@ -90,27 +102,31 @@ const router = createBrowserRouter([
   },
   {
     path: '/cart',
-    element: <CartListWrapper/>
+    element: <CartListWrapper />
   },
   {
     path: '/login',
-    element: <LoginWrapper/>
+    element: <LoginWrapper />
   },
   {
     path: '/signup',
-    element: <SignupWrapper/>
+    element: <SignupWrapper />
   },
   {
     path: '/signup-success',
-    element: <SignupSuccessWrapper/>
+    element: <SignupSuccessWrapper />
   },
   {
     path: '/checkout',
-    element: <CheckoutWrapper/>
+    element: <CheckoutWrapper />
+  },
+  {
+    path: '/orderSuccess',
+    element: <OrderSuccessWrapper />
   },
   {
     path: '/orderDetail',
-    element: <OrderDetailWrapper/>
+    element: <OrderDetailListWrapper />
   }
 ]);
 

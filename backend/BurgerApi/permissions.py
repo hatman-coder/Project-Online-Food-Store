@@ -11,3 +11,4 @@ class AdminOrReadOnly(permissions.IsAdminUser):
             return JsonResponse({
                 "detail": "Error ! You have no permission"
             })
+        

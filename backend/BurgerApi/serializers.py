@@ -139,3 +139,21 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         nested_data = validated_data.pop('order_master_id')
         nested_serializer.update(nested_instance, nested_data)
         return super(OrderDetailSerializer, self).update(instance, validated_data)
+
+
+class UserTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserToken
+        fields = '__all__'
+        extra_kwargs = {
+            'user': {'write_only': True},
+            'token': {'write_only': True}
+        }
+
+class ExpiredTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExpiredToken
+        fields = '__all__'
+        extra_kwargs = {
+            'token': {'write_only': True}
+        }

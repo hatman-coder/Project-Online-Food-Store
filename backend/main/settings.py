@@ -57,6 +57,11 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:3000',
+    # add any additional origins to this list as needed
+]
+
 
 ROOT_URLCONF = 'main.urls'
 
@@ -132,3 +137,10 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'BurgerApi.UserProfile'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'BurgerApi.authentication.UserAuthentication',
+    ],
+}

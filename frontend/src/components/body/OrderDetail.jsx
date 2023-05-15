@@ -1,28 +1,23 @@
 import React from "react";
-import './style/signup-success.css'
+import "./style/cartStyle.css";
 
-const OrderDetail = () => {
+const OrderDetail = ({ orderList }) => {
+    const apiDateString = null
+
     return (
-        <div className=" container container-custom">
-            <form className="login-card-form">
-                        <div>
-                            <h1>
-                                Success
-                            </h1>
-                        </div>
-                        <div className="form-item">
-                            <h2 style={{color: 'white'}}>
-                                Your requsted order has been submitted !
-                            </h2>
-                        </div>
-                        <a  type="button" href="/login" style={{textDecoration: 'none', marginTop: '8rem'}} className="continue-button">Continue</a>
-                    </form>
-
-        </div>
-
-
-
+        <React.Fragment key={orderList.id}>
+            <tr>
+                <td>{orderList.order_master_id.order_no}</td>
+                <td>{orderList.order_master_id.order_status.delivered}</td>
+                <td>{orderList.order_master_id.order_time}</td>
+                <td>{orderList.order_master_id.delivery_time}</td>
+                <td>{orderList.order_master_id.customer_detail.contact_number}</td>
+                <td>{orderList.order_master_id.customer_detail.delivery_address}, {orderList.order_master_id.customer_detail.house_no}</td>
+                <td>{orderList.order_master_id.total}</td>
+            </tr>
+        </React.Fragment>
     )
+
 }
 
 export default OrderDetail
