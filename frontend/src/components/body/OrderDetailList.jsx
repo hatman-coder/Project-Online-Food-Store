@@ -40,7 +40,7 @@ const OrderDetailList = () => {
 
   if (data.length !== 0) {
     return (
-      <div className="container cart-container">
+      <div className="container orderDetail-container">
         <div style={{ overflow: "hidden" }}>
           <h1 style={{ paddingBottom: '3rem', alignContent: 'center', textAlign: 'center', fontStyle: 'bold' }}>Order History</h1>
           <table className="table">
@@ -73,7 +73,7 @@ const OrderDetailList = () => {
     return (
       <div>
         <div className="empty-cart-img-div">
-          <img src="no-record.png" className="empty-cart-img" style={{ height: '400px' }} alt="empty-cart-img" />
+          <img src="no-record.png" className="orderList-empty-img" style={{ height: '400px' }} alt="empty-cart-img" />
         </div>
         <br></br>
         <p style={{ fontSize: '30px', textAlign: 'center', paddingTop: '5rem', fontWeight: 'bold' }}>You have no order history !</p>

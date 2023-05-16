@@ -55,6 +55,21 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+class UserToken(models.Model):
+    user = models.CharField(max_length=200)
+    token = models.CharField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return  self.token
+
+
+class ExpiredToken(models.Model):
+    token = models.CharField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return  self.token
+
 
 class UserInfo(models.Model):
     profile_image = models.ImageField(null=True, blank=True)
@@ -125,7 +140,7 @@ class OrderStatus(models.Model):
     def __str__(self):
         return str(self.order_placed)
 
-
+#Old
 class OrderMaster(models.Model):
     order_no = models.CharField(max_length=10,
                                 blank=True,
@@ -154,17 +169,6 @@ class OrderDetail(models.Model):
     def __str__(self):
         return str(self.order_master_id.order_no)
 
-class UserToken(models.Model):
-    user = models.CharField(max_length=200)
-    token = models.CharField(max_length=500)
-    created_at = models.DateTimeField(auto_now_add=True)
-    def __str__(self):
-        return  self.token
 
 
-class ExpiredToken(models.Model):
-    token = models.CharField(max_length=500)
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return  self.token

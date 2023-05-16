@@ -1,0 +1,129 @@
+.custom-card {
+    width: 100% !important;
+}
+
+.orderDetail-container {
+    padding-top: 45px;
+    background-color: #f2f2f2;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    margin-top: 3rem;
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+
+}
+
+
+.row{
+    min-width: 400px !important;
+    padding-right: 0;
+
+}
+
+
+ td {
+    padding: 0.5rem 0.5rem !important;
+    font-size: 1.3rem;
+    border-bottom-width: none !important;
+}
+
+tbody {
+    min-height: 100vh;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+
+    .cart-container{
+        padding-top: 0;
+    }
+
+    .col {
+        flex: none;
+        flex-shrink: 0;
+        
+    }
+    .row{
+        min-width: 300px;
+        display: inherit;
+    }
+
+
+    thead {
+        display: none;
+    }
+
+    td {
+        display: block;
+        font-size: 1rem;
+        padding: 0.5rem 0.5rem !important;
+        border: 2px solid lightsteelblue;
+        border-bottom-width: none !important;
+        
+        
+    }
+
+    tr{
+        padding-bottom: 4rem;
+        display: block;
+  
+    }
+
+    td:first-child {
+        text-align: center !important;
+    }
+
+    td:nth-child(2)::before {
+        content: "Delivery Status:";
+    }
+
+    td:nth-child(3)::before {
+        content: "Order Time:";
+    }
+
+    td:nth-child(4)::before {
+        content: "Estimated Delivery Time:";
+    }
+
+    td:nth-child(5)::before {
+        content: "Contact:";
+    }
+
+    td:nth-child(6)::before {
+        content: "Delivery Address:";
+    }
+
+    td:nth-child(7)::before {
+        content: "Total";
+    }
+
+    td {
+        text-align: right;
+        /* padding-left: 20px !important; */
+        
+    }
+
+    td::before {
+        float: left !important;
+        margin-right: 3rem !important;
+        font-weight: bold;
+
+    }
+    tr::before{
+        margin-bottom: 30px !important;
+    }
+
+}
+
+
+.orderList-empty-img-div{
+    display: flex;
+    justify-content: center;
+    padding-top: 5rem;
+}
+
+.orderList-empty-img{
+    width: 400px;
+    height: 200px;
+}

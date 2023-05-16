@@ -8,6 +8,9 @@ import axios from "axios";
 
 const NavigationBar = () => {
   const navigate = useNavigate()
+  const cartItems = JSON.parse(localStorage.getItem('cart')) 
+  const cartItemCount = cartItems ? cartItems.length : 0;
+
 
 
   const Logout = () => {
@@ -57,7 +60,7 @@ const NavigationBar = () => {
             </li>
             <li className="nav-item">
               <a className="nav-link" aria-current="page" href="/cart">
-                Cart
+                Cart <span className="badge badge-light" style={{backgroundColor: 'blue', position: 'absolute', top: '8px', right: '15px'}}>{cartItemCount}</span>
               </a>
             </li>
           </div> 
@@ -91,7 +94,7 @@ const NavigationBar = () => {
             </li>
             <li className="nav-item">
               <a className="nav-link" aria-current="page" href="/cart">
-                Cart
+                Cart <span className="badge badge-light" style={{backgroundColor: 'blue', position: 'absolute', top: '8px', right: '15px'}}>{cartItemCount}</span>
               </a>
             </li>
           </div>

@@ -25,6 +25,23 @@ class UserProfileSerializer(serializers.ModelSerializer):
         )
         return user
 
+class UserTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserToken
+        fields = '__all__'
+        extra_kwargs = {
+            'user': {'write_only': True},
+            'token': {'write_only': True}
+        }
+
+class ExpiredTokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExpiredToken
+        fields = '__all__'
+        extra_kwargs = {
+            'token': {'write_only': True}
+        }
+
 
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -100,6 +117,9 @@ class OrderMasterSerializer(serializers.ModelSerializer):
         )
         return order_master
 
+
+
+
     def update(self, instance, validated_data):
         nested_customer_detail = self.fields['customer_detail']
         nested_order_status = self.fields['order_status']
@@ -141,19 +161,3 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         return super(OrderDetailSerializer, self).update(instance, validated_data)
 
 
-class UserTokenSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserToken
-        fields = '__all__'
-        extra_kwargs = {
-            'user': {'write_only': True},
-            'token': {'write_only': True}
-        }
-
-class ExpiredTokenSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ExpiredToken
-        fields = '__all__'
-        extra_kwargs = {
-            'token': {'write_only': True}
-        }
