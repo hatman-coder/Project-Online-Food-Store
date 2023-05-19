@@ -156,15 +156,17 @@ class OrderMaster(models.Model):
     delivery_time = models.CharField(max_length=1000, editable=False)
 
     def __str__(self):
-        return str(self.user_id)
+        return str(self.order_no)
 
 
 
 
 class OrderDetail(models.Model):
-    order_master_id = models.ForeignKey(OrderMaster, on_delete=models.CASCADE)
+    order_master_id = models.ForeignKey(OrderMaster, on_delete=models.CASCADE, related_name='order_detail')
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     product_price = models.CharField(max_length=10)
+    add_ons = models.CharField(max_length=200, blank=True, null=True)
+
 
     def __str__(self):
         return str(self.order_master_id.order_no)

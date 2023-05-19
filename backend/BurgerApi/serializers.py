@@ -96,68 +96,135 @@ class OrderStatusSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+# class OrderMasterSerializer(serializers.ModelSerializer):
+#     customer_detail = CustomerDetailSerializer()
+#     order_status = OrderStatusSerializer()
+#
+#     class Meta:
+#         model = OrderMaster
+#         fields = '__all__'
+#
+#     def create(self, validated_data):
+#         customer_detail_data = validated_data.pop('customer_detail')
+#         customer_detail = CustomerDetail.objects.create(**customer_detail_data)
+#         order_status_data = validated_data.pop('order_status')
+#         order_status = OrderStatus.objects.create(**order_status_data)
+#         order_master = OrderMaster.objects.create(
+#             customer_detail=customer_detail,
+#             order_status=order_status,
+#             **validated_data,
+#             delivery_time=(datetime.now() + timedelta(minutes=30)).strftime('%H:%M:%S')
+#         )
+#         return order_master
+#
+#
+#
+#
+#     def update(self, instance, validated_data):
+#         nested_customer_detail = self.fields['customer_detail']
+#         nested_order_status = self.fields['order_status']
+#         nested_customer_detail_instance = instance.customer_detail
+#         nested_order_status_instance = instance.order_status
+#         nested_customer_detail_data = validated_data.pop('customer_detail')
+#         nested_order_status_data = validated_data.pop('order_status')
+#         nested_customer_detail.update(nested_customer_detail_instance, nested_customer_detail_data)
+#         nested_order_status.update(nested_order_status_instance, nested_order_status_data)
+#         return super(OrderMasterSerializer, self).update(instance, validated_data)
+
+# class OrderDetailSerializer(serializers.ModelSerializer):
+#     order_master_id = OrderMasterSerializer()
+#
+#     class Meta:
+#         model = OrderDetail
+#         fields = '__all__'
+#
+#     def create(self, validated_data):
+#         product_id = validated_data.pop('product_id')
+#         product_price = validated_data.pop('product_price')
+#
+#         order_master_data = validated_data.pop('order_master_id')
+#         order_master_id = OrderMasterSerializer.create(OrderMasterSerializer(), validated_data=order_master_data)
+#
+#         return OrderDetail.objects.create(
+#             order_master_id=order_master_id,
+#             product_id=product_id,
+#             product_price=product_price,
+#         )
+#
+#
+#
+#     def update(self, instance, validated_data):
+#         nested_serializer = self.fields['order_master_id']
+#         nested_instance = instance.order_master_id
+#         nested_data = validated_data.pop('order_master_id')
+#         nested_serializer.update(nested_instance, nested_data)
+#         return super(OrderDetailSerializer, self).update(instance, validated_data)
+
+
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderDetail
+        fields = ['product_id', 'product_price', 'add_ons']
+        read_only_fields = ['order_master_id']
+
+
+
+
 class OrderMasterSerializer(serializers.ModelSerializer):
+    order_detail = OrderDetailSerializer(many=True)
     customer_detail = CustomerDetailSerializer()
     order_status = OrderStatusSerializer()
 
     class Meta:
         model = OrderMaster
         fields = '__all__'
+        read_only_fields = ['id', 'order_no', 'delivery_time']
 
     def create(self, validated_data):
+        order_detail_data = validated_data.pop('order_detail')
+
         customer_detail_data = validated_data.pop('customer_detail')
         customer_detail = CustomerDetail.objects.create(**customer_detail_data)
+
         order_status_data = validated_data.pop('order_status')
         order_status = OrderStatus.objects.create(**order_status_data)
+
         order_master = OrderMaster.objects.create(
             customer_detail=customer_detail,
             order_status=order_status,
             **validated_data,
             delivery_time=(datetime.now() + timedelta(minutes=30)).strftime('%H:%M:%S')
         )
+
+        for item in order_detail_data:
+            OrderDetail.objects.create(
+                order_master_id=order_master,
+                **item
+            )
+
         return order_master
 
 
 
 
-    def update(self, instance, validated_data):
-        nested_customer_detail = self.fields['customer_detail']
-        nested_order_status = self.fields['order_status']
-        nested_customer_detail_instance = instance.customer_detail
-        nested_order_status_instance = instance.order_status
-        nested_customer_detail_data = validated_data.pop('customer_detail')
-        nested_order_status_data = validated_data.pop('order_status')
-        nested_customer_detail.update(nested_customer_detail_instance, nested_customer_detail_data)
-        nested_order_status.update(nested_order_status_instance, nested_order_status_data)
-        return super(OrderMasterSerializer, self).update(instance, validated_data)
-
-class OrderDetailSerializer(serializers.ModelSerializer):
-    order_master_id = OrderMasterSerializer()
-
-    class Meta:
-        model = OrderDetail
-        fields = '__all__'
-
-    def create(self, validated_data):
-        product_id = validated_data.pop('product_id')
-        product_price = validated_data.pop('product_price')
-
-        order_master_data = validated_data.pop('order_master_id')
-        order_master_id = OrderMasterSerializer.create(OrderMasterSerializer(), validated_data=order_master_data)
-
-        return OrderDetail.objects.create(
-            order_master_id=order_master_id,
-            product_id=product_id,
-            product_price=product_price,
-        )
 
 
 
-    def update(self, instance, validated_data):
-        nested_serializer = self.fields['order_master_id']
-        nested_instance = instance.order_master_id
-        nested_data = validated_data.pop('order_master_id')
-        nested_serializer.update(nested_instance, nested_data)
-        return super(OrderDetailSerializer, self).update(instance, validated_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
