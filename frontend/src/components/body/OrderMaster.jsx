@@ -1,7 +1,7 @@
 import React from "react";
-import "./style/orderDetail.css";
+import "./style/orderMaster.css";
 
-const OrderDetail = ({ orderList }) => {
+const OrderMaster = ({ orderList }) => {
 
 
 
@@ -33,17 +33,17 @@ const OrderDetail = ({ orderList }) => {
     return (
         <React.Fragment key={orderList.id}>
             <tr>
-                <td>{orderList.order_master_id.order_no}</td>
-                <td>{orderList.order_master_id.order_status.delivered}</td>
-                <td>{DateTimeFormat(orderList.order_master_id.order_time)}</td>
-                <td>{TwelveHTimeFormat(orderList.order_master_id.delivery_time)}</td>
-                <td>{orderList.order_master_id.customer_detail.contact_number}</td>
-                <td>{orderList.order_master_id.customer_detail.delivery_address}, {orderList.order_master_id.customer_detail.house_no}</td>
-                <td>{orderList.order_master_id.total}</td>
+                <td>{orderList.order_no}</td>
+                <td>{orderList.order_status.map(item => item.delivered)}</td>
+                <td>{DateTimeFormat(orderList.order_time)}</td>
+                <td>{TwelveHTimeFormat(orderList.delivery_time)}</td>
+                <td>{orderList.customer_detail.map(item => item.contact_number)}</td>
+                <td>{orderList.customer_detail.map(item => item.delivery_address)}, {orderList.customer_detail.map(item => item.house_no)}</td>
+                <td>{orderList.total}</td>
             </tr>
         </React.Fragment>
     )
 
 }
 
-export default OrderDetail
+export default OrderMaster

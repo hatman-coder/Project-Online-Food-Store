@@ -25,6 +25,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         )
         return user
 
+
 class UserTokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserToken
@@ -33,6 +34,7 @@ class UserTokenSerializer(serializers.ModelSerializer):
             'user': {'write_only': True},
             'token': {'write_only': True}
         }
+
 
 class ExpiredTokenSerializer(serializers.ModelSerializer):
     class Meta:
@@ -88,93 +90,68 @@ class CustomerDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerDetail
         fields = '__all__'
+        read_only_fields = ['order_master_id']
+
 
 
 class OrderStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderStatus
-        fields = '__all__'
+        fields = ['order_placed', 'order_pending', 'order_confirmed', 'order_preparation_on_going', 'out_for_delivery', 'delivered']
+        read_only_fields = ['order_master_id']
+
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderDetail
+        fields = ['product_id', 'product_price', 'add_ons', 'total_add_ons_price']
+        read_only_fields = ['order_master_id']
 
 
 # class OrderMasterSerializer(serializers.ModelSerializer):
+#     order_detail = OrderDetailSerializer(many=True)
 #     customer_detail = CustomerDetailSerializer()
 #     order_status = OrderStatusSerializer()
 #
 #     class Meta:
 #         model = OrderMaster
 #         fields = '__all__'
+#         read_only_fields = ['id', 'order_no', 'delivery_time']
 #
 #     def create(self, validated_data):
+#
+#         order_detail_data = validated_data.pop('order_detail')
 #         customer_detail_data = validated_data.pop('customer_detail')
-#         customer_detail = CustomerDetail.objects.create(**customer_detail_data)
 #         order_status_data = validated_data.pop('order_status')
-#         order_status = OrderStatus.objects.create(**order_status_data)
+#
+#
+#         #Creating OrderMaster Object
 #         order_master = OrderMaster.objects.create(
-#             customer_detail=customer_detail,
-#             order_status=order_status,
 #             **validated_data,
 #             delivery_time=(datetime.now() + timedelta(minutes=30)).strftime('%H:%M:%S')
 #         )
+#
+#         # Creating Customer Object
+#         customer_detail = CustomerDetail.objects.create(order_master_id=order_master, **customer_detail_data)
+#
+#
+#         #Creating OrderStatus Object
+#         order_status = OrderStatus.objects.create(order_master_id=order_master, **order_status_data)
+#
+#         #Looping through order detail array and Saving OrderDetail Object
+#         for item in order_detail_data:
+#             OrderDetail.objects.create(
+#                 order_master_id=order_master,
+#                 **item
+#             )
+#
 #         return order_master
-#
-#
-#
-#
-#     def update(self, instance, validated_data):
-#         nested_customer_detail = self.fields['customer_detail']
-#         nested_order_status = self.fields['order_status']
-#         nested_customer_detail_instance = instance.customer_detail
-#         nested_order_status_instance = instance.order_status
-#         nested_customer_detail_data = validated_data.pop('customer_detail')
-#         nested_order_status_data = validated_data.pop('order_status')
-#         nested_customer_detail.update(nested_customer_detail_instance, nested_customer_detail_data)
-#         nested_order_status.update(nested_order_status_instance, nested_order_status_data)
-#         return super(OrderMasterSerializer, self).update(instance, validated_data)
-
-# class OrderDetailSerializer(serializers.ModelSerializer):
-#     order_master_id = OrderMasterSerializer()
-#
-#     class Meta:
-#         model = OrderDetail
-#         fields = '__all__'
-#
-#     def create(self, validated_data):
-#         product_id = validated_data.pop('product_id')
-#         product_price = validated_data.pop('product_price')
-#
-#         order_master_data = validated_data.pop('order_master_id')
-#         order_master_id = OrderMasterSerializer.create(OrderMasterSerializer(), validated_data=order_master_data)
-#
-#         return OrderDetail.objects.create(
-#             order_master_id=order_master_id,
-#             product_id=product_id,
-#             product_price=product_price,
-#         )
-#
-#
-#
-#     def update(self, instance, validated_data):
-#         nested_serializer = self.fields['order_master_id']
-#         nested_instance = instance.order_master_id
-#         nested_data = validated_data.pop('order_master_id')
-#         nested_serializer.update(nested_instance, nested_data)
-#         return super(OrderDetailSerializer, self).update(instance, validated_data)
-
-
-
-class OrderDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = OrderDetail
-        fields = ['product_id', 'product_price', 'add_ons']
-        read_only_fields = ['order_master_id']
-
-
 
 
 class OrderMasterSerializer(serializers.ModelSerializer):
     order_detail = OrderDetailSerializer(many=True)
-    customer_detail = CustomerDetailSerializer()
-    order_status = OrderStatusSerializer()
+    customer_detail = CustomerDetailSerializer(many=True)
+    order_status = OrderStatusSerializer(many=True)
 
     class Meta:
         model = OrderMaster
@@ -183,48 +160,24 @@ class OrderMasterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         order_detail_data = validated_data.pop('order_detail')
-
         customer_detail_data = validated_data.pop('customer_detail')
-        customer_detail = CustomerDetail.objects.create(**customer_detail_data)
-
         order_status_data = validated_data.pop('order_status')
-        order_status = OrderStatus.objects.create(**order_status_data)
 
         order_master = OrderMaster.objects.create(
-            customer_detail=customer_detail,
-            order_status=order_status,
             **validated_data,
             delivery_time=(datetime.now() + timedelta(minutes=30)).strftime('%H:%M:%S')
         )
 
-        for item in order_detail_data:
-            OrderDetail.objects.create(
-                order_master_id=order_master,
-                **item
-            )
+        #Creating Order Detail Object
+        for order_detail in order_detail_data:
+            OrderDetail.objects.create(order_master_id=order_master, **order_detail)
+
+        #Creating Customer Detail Object
+        for customer_detail in customer_detail_data:
+            CustomerDetail.objects.create(order_master_id=order_master, **customer_detail)
+
+        #Creating Order Status Object
+        for order_status in order_status_data:
+            OrderStatus.objects.create(order_master_id=order_master, **order_status)
 
         return order_master
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

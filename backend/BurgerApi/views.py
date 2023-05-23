@@ -19,7 +19,8 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 from rest_framework.permissions import AllowAny
 from rest_framework.authentication import SessionAuthentication
-from  .authentication import UserAuthentication
+from .authentication import UserAuthentication
+from django.views.decorators.csrf import csrf_exempt
 
 
 class UserProfileViewSet(viewsets.ModelViewSet):
@@ -28,14 +29,23 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication]
     permission_classes = [AllowAny]
 
+
 class UserInfoViewSet(viewsets.ModelViewSet):
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
 
-class CustomerViewSet(viewsets.ModelViewSet):
-    queryset = CustomerDetail.objects.all()
-    serializer_class = CustomerDetailSerializer
-    permission_classes = [IsAuthenticated]
+
+    # permission_classes = [IsAuthenticated]
+
+    # def get_queryset(self):
+    #     # Get the authenticated user
+    #     user = self.request.user.id
+    #
+    #     # Filter orders by the authenticated user
+    #     if user:
+    #         return CustomerDetail.objects.filter(user_id=user)
+    #     else:
+    #         raise AuthenticationFailed('User not found')
 
 
 class ProductViewset(viewsets.ModelViewSet):
@@ -51,9 +61,12 @@ class CategoryViewset(viewsets.ModelViewSet):
     authentication_classes = [UserAuthentication]
     permission_classes = [AdminOrReadOnly]
 
+
 class OrderMasterViewset(viewsets.ModelViewSet):
+    queryset = OrderMaster.objects.all()
     serializer_class = OrderMasterSerializer
     permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         # Get the authenticated user
@@ -64,6 +77,7 @@ class OrderMasterViewset(viewsets.ModelViewSet):
             return OrderMaster.objects.filter(user_id=user)
         else:
             raise AuthenticationFailed('User not found')
+
 
 class OrderDetailViewset(viewsets.ModelViewSet):
     serializer_class = OrderDetailSerializer
@@ -81,15 +95,23 @@ class OrderStatusViewset(viewsets.ModelViewSet):
     queryset = OrderStatus.objects.all()
     serializer_class = OrderStatusSerializer
 
+class CustomerViewSet(viewsets.ModelViewSet):
+    queryset = CustomerDetail.objects.all()
+    serializer_class = CustomerDetailSerializer
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
 class PaymentTypeViewset(viewsets.ModelViewSet):
     queryset = PaymentType.objects.all()
     serializer_class = PaymentTypeSerializer
 
+
 class AddOnsViewSet(viewsets.ModelViewSet):
     queryset = AddOns.objects.all()
     serializer_class = AddOnsSerializer
-    authentication_classes = [SessionAuthentication]
+    authentication_classes = []
     permission_classes = [AllowAny]
+
 
 class ExpiredTokenViewSet(viewsets.ModelViewSet):
     queryset = ExpiredToken.objects.all()
@@ -97,10 +119,10 @@ class ExpiredTokenViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
 
 
-
 class LoginApiViewSet(APIView):
-    authentication_classes = [SessionAuthentication]
     permission_classes = [AllowAny]
+    authentication_classes = []
+
     def post(self, request):
         email = request.data['email']
         password = request.data['password']
@@ -111,13 +133,13 @@ class LoginApiViewSet(APIView):
             raise AuthenticationFailed('User not found !')
 
         if not user.check_password(password):
-            raise  AuthenticationFailed('Incorrect password !')
+            raise AuthenticationFailed('Incorrect password !')
         else:
             payload = {
                 'id': user.id,
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=15),
                 'iat': datetime.datetime.utcnow()
-             }
+            }
 
             token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
             serializer = UserTokenSerializer(data={
@@ -138,43 +160,9 @@ class LoginApiViewSet(APIView):
                 })
 
 
-#
-# class LogoutApiViewSet(APIView):
-#     def post(self, request):
-#         response = Response()
-#         response.delete_cookie('jwt')
-#         response.data = {
-#             'message': 'success'
-#         }
-#         return response
-
-
-
-# class LogoutApiViewSet(APIView):
-#     authentication_classes = [SessionAuthentication]
-#     permission_classes = [AllowAny]
-#     def post(self, request):
-#         get_token = request.COOKIES.get('auth')
-#         serializer = ExpiredTokenSerializer(data={
-#             'token' : get_token
-#         })
-#         if serializer.is_valid() and get_token != '':
-#             serializer.save()
-#             response = Response()
-#             response.delete_cookie('auth')
-#             response.data = {
-#                 'message': 'success'
-#             }
-#             return response
-#         else:
-#             # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#             return Response({
-#               'error':  'Login first ! Invalid logout request'
-#             })
-
 class LogoutApiViewSet(APIView):
-    authentication_classes = [SessionAuthentication]
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def post(self, request):
         get_token = request.COOKIES.get('auth')
@@ -198,7 +186,6 @@ class LogoutApiViewSet(APIView):
             return Response({
                 'error': 'Invalid token'
             }, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class UserAuthViewSet(APIView):

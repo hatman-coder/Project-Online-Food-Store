@@ -83,7 +83,7 @@ const NavigationBar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="/orderDetail">
+              <a className="nav-link" aria-current="page" href="/orders">
                 Orders
               </a>
             </li>

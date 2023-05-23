@@ -17,6 +17,7 @@ router.register(r'orderStatus', OrderStatusViewset)
 router.register(r'paymentType', PaymentTypeViewset)
 router.register(r'user-info', UserInfoViewSet)
 router.register(r'expired', ExpiredTokenViewSet)
+router.register(r'customerDetail', CustomerViewSet)
 
 
 

@@ -4,6 +4,7 @@ from .models import UserProfile, ExpiredToken
 import jwt
 import datetime
 
+
 class UserAuthentication(BaseAuthentication):
     def authenticate(self, request):
         auth_header = request.headers.get('Authorization')

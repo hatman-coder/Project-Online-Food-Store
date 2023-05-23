@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import OrderDetail from "./OrderDetail";
+import OrderDetail from "./OrderMaster";
 
 
-const OrderDetailList = () => {
+const OrderMasterList = () => {
 
 
   const [data, setData] = useState([])
@@ -16,7 +16,7 @@ const OrderDetailList = () => {
 
   const OrderList = () => {
     if (headers) {
-      axios.get('http://localhost:8000/orderDetail/', { headers }).then(res => {
+      axios.get('http://localhost:8000/orderMaster/', { headers }).then(res => {
         if (res.data) {
           setData(res.data)
           console.log(res.data)
@@ -87,8 +87,7 @@ const OrderDetailList = () => {
 
 
 
-export default OrderDetailList
-
+export default OrderMasterList
 
 
 

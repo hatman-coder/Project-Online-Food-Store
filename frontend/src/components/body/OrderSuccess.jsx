@@ -17,7 +17,7 @@ const OrderSuccess = () => {
                                 Your requsted order has been submitted !
                             </h2>
                         </div>
-                        <a  type="button" href="/orderDetail" style={{textDecoration: 'none', marginTop: '8rem'}} className="continue-button">Continue</a>
+                        <a  type="button" href="/orders" style={{textDecoration: 'none', marginTop: '8rem'}} className="continue-button">Continue</a>
                     </form>
 
         </div>

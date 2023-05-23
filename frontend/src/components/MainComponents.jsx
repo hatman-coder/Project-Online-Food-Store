@@ -8,9 +8,8 @@ import Login from "./body/Login";
 import Signup from "./body/Signup";
 import SignupSuccess from "./body/SignupSuccess";
 import Checkout from "./body/Checkout";
-import OrderDetail from "./body/OrderDetailList";
 import OrderSuccess from "./body/OrderSuccess";
-import OrderDetailList from "./body/OrderDetailList";
+import OrderMasterList from "./body/OrderMasterList";
 
 const ProductWrapper = () => {
   return (
@@ -82,11 +81,11 @@ const OrderSuccessWrapper = () => {
   )
 }
 
-const OrderDetailListWrapper = () => {
+const OrderMasterListWrapper = () => {
   return (
     <div>
       <Header />
-      <OrderDetailList />
+      <OrderMasterList />
       <Footer />
     </div>
   )
@@ -125,8 +124,8 @@ const router = createBrowserRouter([
     element: <OrderSuccessWrapper />
   },
   {
-    path: '/orderDetail',
-    element: <OrderDetailListWrapper />
+    path: '/orders',
+    element: <OrderMasterListWrapper />
   }
 ]);
 

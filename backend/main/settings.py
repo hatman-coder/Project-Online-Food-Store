@@ -59,7 +59,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:3000',
-    # add any additional origins to this list as needed
+    # Add any additional origins to this list as needed
 ]
 
 
@@ -142,5 +142,6 @@ AUTH_USER_MODEL = 'BurgerApi.UserProfile'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'BurgerApi.authentication.UserAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
 }
