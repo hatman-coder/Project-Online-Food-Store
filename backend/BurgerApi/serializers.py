@@ -181,3 +181,22 @@ class OrderMasterSerializer(serializers.ModelSerializer):
             OrderStatus.objects.create(order_master_id=order_master, **order_status)
 
         return order_master
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+
+    old_password = serializers.CharField(
+        style = {'input_type': 'password'},
+        write_only = True,
+        required = True,
+    )
+    new_password = serializers.CharField(
+        style = {'input_type': 'password'},
+        write_only = True,
+        required = True,
+    )
+    retype_password = serializers.CharField(
+        style = {'input_type': 'password'},
+        write_only = True,
+        required = True,
+    )

@@ -25,4 +25,5 @@ urlpatterns = [
                   path('login', LoginApiViewSet.as_view(), name='login'),
                   path('user-auth', UserAuthViewSet.as_view(), name='user-auth'),
                   path('logout', LogoutApiViewSet.as_view(), name='logout'),
+                  path('change-password', ChangePasswordViewSet.as_view(), name='change-password'),
               ] + router.urls + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
